@@ -45,9 +45,19 @@ Linux Command-cheatSheet:(There are many types/categories of linux commands): ke
 
 3. Networking & Connectivity
    ip: Replacing the old ifconfig for interface management.
+      ip a - gives private ip address
    curl / wget: Transferring data over networks.
+      curl ifconfig.me - give public ip address
+      wget
    netstat / ss: Investigating socket connections.
    dig / nslookup: DNS troubleshooting
+      dig google.com   - Domain Information Groper -
+   ping: To check any server or service access or not.
+      ping www.google.com
+
+   Need to learn more complex Networking commands..
+   
+   
   
    
    
