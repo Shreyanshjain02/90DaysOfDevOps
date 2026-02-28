@@ -118,10 +118,18 @@ ignore files are not copied
 
 ### Task 6: Build Optimization
 1. Build an image, then change one line and rebuild — notice how Docker uses **cache**
+
+   Yes, first build is slower compared to other builds from same dockerfile.
+
 2. Reorder your Dockerfile so that frequently changing lines come **last**
+
+   Reordering, does impact build speed it is similar to first build.
+
 3. Write in your notes: Why does layer order matter for build speed?
+   
+   Docker's layer caching mechanism is a core feature that accelerates image builds by reusing unchanged, read-only layers from previous builds instead of rebuilding them from scratch. Each instruction in a Dockerfile (like FROM, RUN, COPY, or ADD) creates a new, immutable layer.
 
-
+   Layering/order is very important if it is disturbed or changed than build time will be similar to first build from same dockerfile.as we confused system the order of execution and it will re-cache new order.
 
 ---
 
