@@ -39,8 +39,22 @@ From memory, draw or describe the Kubernetes architecture. Your diagram should i
 
 After drawing, verify your understanding:
 - What happens when you run `kubectl apply -f pod.yaml`? Trace the request through each component.
+
+ A pod is created with file reference pod.yml
+ 
+<img width="670" height="83" alt="image" src="https://github.com/user-attachments/assets/9185e235-f19d-4803-b997-8c007c16bb6d" />
+
 - What happens if the API server goes down?
+Connection between control-plane(master node) will be broken with worker node. which can be a chaos and disturb the motive of kubernetes i.e auto scaling and healing.
+Yes. While Kubernetes is built for High Availability (HA), the API server is the "Single Point of Truth." Without it, the cluster loses its "intelligence"—it can't scale, it can't heal, and it can't take orders.
+Pro-tip: This is why in production, we run multiple API servers behind a Load Balancer so that if one fails, the others keep the cluster "thinking."
+
 - What happens if a worker node goes down?
+If worker node goes down, end user experience will be disturbed if it is single worker node in cluster then end-user will not see application hosted on this worker node or pods within this node. if it is multi-worker cluster then latency will be impacted.but here is the catch:
+As kubernetes has built-in auto scaling and healing power.so if worker node goes down:
+Detection phase: kubelet(heatbeat of node) will stop sending heatbeat to api server(control plane) after 40 sec api server will mark that node's status as unkown or notready.
+Eviction Phase: Control plane will not immediatly remove or move pod if workernode is restarting. It will wait for 5 min conviction period.
+ Healing phase: Once the 5-minute timeout expires, the Control Plane marks the Pods on the failed node for deletion.And scheduler initiate replacement pods on healthy node.if it is single node then it will be complete outrage till manually healed/recovered/replaced.
 
 ---
 
