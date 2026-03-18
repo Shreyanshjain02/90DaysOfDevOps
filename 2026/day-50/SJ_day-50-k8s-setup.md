@@ -93,29 +93,17 @@ kind create cluster --name devops-cluster
 
 # Verify
 kubectl cluster-info
+
+This gives you only details like ip and node name for recently created cluster 
+
 kubectl get nodes
+
+This gives you recently created nodes of cluster.
 ```
 <img width="267" height="32" alt="image" src="https://github.com/user-attachments/assets/821124f7-c8a3-425b-abce-3ed80f370c96" />
 
 <img width="529" height="288" alt="image" src="https://github.com/user-attachments/assets/7a607c93-a91b-4eae-861e-ff36521bb7b7" />
 
-**Option B: minikube**
-```bash
-# Install minikube
-# macOS
-brew install minikube
-
-# Linux
-curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-sudo install minikube-linux-amd64 /usr/local/bin/minikube
-
-# Start a cluster
-minikube start
-
-# Verify
-kubectl cluster-info
-kubectl get nodes
-```
 
 Write down: Which one did you choose and why?
 
@@ -129,28 +117,41 @@ Now that your cluster is running, explore it:
 ```bash
 # See cluster info
 kubectl cluster-info
+This gives you only details like ip and node name for recently created cluster 
+
 
 # List all nodes
 kubectl get nodes
 
+This gives you node details like name,status,role,version for recently created cluster. not all past cluster and nodes.
+
 # Get detailed info about your node
 kubectl describe node <node-name>
+
+This is very powerfull command which gives you all system related details of node
 
 # List all namespaces
 kubectl get namespaces
 
+This gives you list of all namespaces and their status.
+
 # See ALL pods running in the cluster (across all namespaces)
 kubectl get pods -A
 ```
+This gives you list of pods from recently created cluster from all namespaces
 
 Look at the pods running in the `kube-system` namespace:
+All the pods in kube-system namespace are default key pods like kube-proxy,etcd,scheduler,control manager, api server.
+
 ```bash
 kubectl get pods -n kube-system
 ```
 
-You should see pods like `etcd`, `kube-apiserver`, `kube-scheduler`, `kube-controller-manager`, `coredns`, and `kube-proxy`. These are the architecture components you drew in Task 2 — running as pods inside the cluster.
+Yes, we see pods like `etcd`, `kube-apiserver`, `kube-scheduler`, `kube-controller-manager`, `coredns`, and `kube-proxy`. These are the architecture components you drew in Task 2 — running as pods inside the cluster.
 
 **Verify:** Can you match each running pod in `kube-system` to a component in your architecture diagram?
+
+But kubelet is missing.as it does not run as pod it is an systemd (daemon service)
 
 ---
 
@@ -162,16 +163,20 @@ Build muscle memory with cluster operations:
 kind delete cluster --name devops-cluster
 # (or: minikube delete)
 
+Done!
+
 # Recreate it
 kind create cluster --name devops-cluster
 # (or: minikube start)
+
+Done!
 
 # Verify it is back
 kubectl get nodes
 
 <img width="430" height="73" alt="image" src="https://github.com/user-attachments/assets/b8cc8941-55f1-41a0-93c8-f35aa38b3bcf" />
 
-
+Done!
 ```
 
 Try these useful commands:
@@ -179,15 +184,28 @@ Try these useful commands:
 # Check which cluster kubectl is connected to
 kubectl config current-context
 
+Recently created cluster
+
 # List all available contexts (clusters)
 kubectl config get-contexts
+
+This is good and helpfull command which gives all cluster not only recently created
 
 # See the full kubeconfig
 kubectl config view
 
+A kubeconfig file is a YAML-formatted configuration file used by kubectl and other clients to authenticate and connect to Kubernetes clusters. It stores API server addresses, security credentials, and cluster-specific settings
+
+<img width="316" height="244" alt="image" src="https://github.com/user-attachments/assets/70e457d0-12c1-4f75-b426-1826e226c3a9" />
+
+
 ```
 
 Write down: What is a kubeconfig? Where is it stored on your machine?
+
+A kubeconfig file is a YAML-formatted configuration file used by kubectl and other clients to authenticate and connect to Kubernetes clusters. It stores API server addresses, security credentials, and cluster-specific settings
+
+On windows it is located on C:\Users\sjn46\.kube.
 
 ---
 
@@ -201,13 +219,4 @@ Write down: What is a kubeconfig? Where is it stored on your machine?
 
 ---
 
-## Documentation
-Create `day-50-k8s-setup.md` with:
-- Kubernetes history in your own words (3-4 sentences)
-- Your architecture diagram (text-based or image)
-- Which tool you chose (kind/minikube) and why
-- Screenshot of `kubectl get nodes` and `kubectl get pods -n kube-system`
-- What each kube-system pod does
-
----
 
