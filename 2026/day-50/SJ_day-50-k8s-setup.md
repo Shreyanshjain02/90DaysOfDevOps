@@ -16,7 +16,7 @@ so kubernetes is inspired by borg.
 
 3. What does the name "Kubernetes" mean?
 
-kubernetes is derived from greek which pilot of big ship which has containers.
+kubernetes is derived from greek word which means pilot of big ship which has containers.
 
 Do not look anything up yet. Write what you remember from the session, then verify against the official docs.
 
