@@ -18,10 +18,8 @@ so kubernetes is inspired by borg.
 
 kubernetes is derived from greek word which means pilot of big ship which has containers.
 
-Do not look anything up yet. Write what you remember from the session, then verify against the official docs.
 
 ---
-
 ### Task 2: Draw the Kubernetes Architecture
 From memory, draw or describe the Kubernetes architecture. Your diagram should include:
 
