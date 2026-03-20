@@ -8,9 +8,6 @@ You will create a short practice note by actually running basic commands and cap
 - Inspect one systemd service
 - Capture a small troubleshooting flow
 - Process checks
-- Service checks
-- Log checks
-- Mini troubleshooting steps
 
 This is hands-on. Keep it simple and focused on fundamentals.
 
