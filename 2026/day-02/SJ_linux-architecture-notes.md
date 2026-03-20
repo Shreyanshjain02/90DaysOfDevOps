@@ -1,10 +1,28 @@
-Linux Fundamental:-
+# Day 02 – Linux Architecture, Processes, and systemd
+
+## Task
+Today’s goal is to **understand how Linux works under the hood**.
+
+You will create a short note that explains:
+- The core components of Linux (kernel, user space, init/systemd)
+- How processes are created and managed
+- What systemd does and why it matters
+
+This is the foundation for all troubleshooting you will do as a DevOps engineer.
+
+
+**Linux Fundamental**:-
+
   1. We started linux with its architecture.understand it with example of grocery store.
      **A**pplication , **S**hell, **K**ernel
      <img width="742" height="343" alt="Linux Architecture" src="https://github.com/user-attachments/assets/9a0d890a-03e2-41af-b85f-85f981a9f33e" />
+  
   2. Shell Command:- It is interactive way to talk to kernel(store manager).
+  
   3. Learn File system hierarchy -> To learn shell command in depth and remember it for longer period of time.
+  
   4. Everything in linux is either file or directory.
+  
   5. Many flavour of linux available in market:-
        Ubuntu - (We are using for practice)
        Fedora
@@ -45,6 +63,7 @@ Linux Fundamental:-
       Z =  Zombie
      Also there are other type of state in combination format, Please clear understand any PID state before using KILL command.
     command:-  Kill -9 (to kill process running on PID 9)
+  
   10. Mostly used command for daily work:-
       pwd - path of working directory
       cd - change directory
