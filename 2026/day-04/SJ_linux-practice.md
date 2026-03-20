@@ -36,6 +36,7 @@ This is hands-on. Keep it simple and focused on fundamentals.
 
   
   how to download file from linux server to window local:
+  
     **scp** -i privatekey user@public_dns:file/path/you_want_to_download c:/download
   
 Follow these rules while creating your practice note:
