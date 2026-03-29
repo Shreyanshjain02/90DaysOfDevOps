@@ -85,11 +85,17 @@ Run the Terraform lifecycle:
 terraform init      # Download the AWS provider
 terraform plan      # Preview what will be created
 terraform apply     # Create the bucket (type 'yes' to confirm)
+terraform state list   #Shows all resources created.
 ```
 
 Go to the AWS S3 console and verify your bucket exists.
 
+<img width="954" height="419" alt="image" src="https://github.com/user-attachments/assets/9992464d-891d-4d2d-bd75-41d3232d3e02" />
+
+
 **Document:** What did `terraform init` download? What does the `.terraform/` directory contain?
+
+terraform init download all provider's version and detail used in your .tf file.which will make your resources to work smoothly 
 
 ---
 
@@ -99,9 +105,11 @@ In the same `main.tf`, add:
 2. Set instance type to `t2.micro`
 3. Add a tag: `Name = "TerraWeek-Day1"`
 
+_I am creating Amazon Linux 2 EC2 on us-west-2 region with t3.micro_
+
 Run:
 ```bash
-terraform plan      # You should see 1 resource to add (bucket already exists)
+terraform plan      # You should see 1 resource to add (bucket already exists) - YES
 terraform apply
 ```
 
@@ -109,34 +117,65 @@ Go to the AWS EC2 console and verify your instance is running with the correct n
 
 **Document:** How does Terraform know the S3 bucket already exists and only the EC2 instance needs to be created?
 
+<img width="951" height="348" alt="image" src="https://github.com/user-attachments/assets/dcf09681-f588-4e52-b0c9-7d69bc98d3f3" />
+
+
 ---
 
 ### Task 5: Understand the State File
 Terraform tracks everything it creates in a state file. Time to inspect it.
 
 1. Open `terraform.tfstate` in your editor -- read the JSON structure
+
 2. Run these commands and document what each returns:
 ```bash
 terraform show                          # Human-readable view of current state
 terraform state list                    # List all resources Terraform manages
+
+<img width="416" height="52" alt="image" src="https://github.com/user-attachments/assets/c32cb60b-0508-44f5-bff1-b9823e3cb4d0" />
+
 terraform state show aws_s3_bucket.<name>   # Detailed view of a specific resource
+
+<img width="577" height="396" alt="image" src="https://github.com/user-attachments/assets/d9d1c418-0b02-4c68-acef-f954ac401ea4" />
+
+
 terraform state show aws_instance.<name>
 ```
 
 3. Answer these questions in your notes:
    - What information does the state file store about each resource?
-   - Why should you never manually edit the state file?
-   - Why should the state file not be committed to Git?
 
+     It maps your configuration to real-world resources. Beyond just arguments (like null or false values), it stores crucial metadata like resource IDs, dependencies between objects, and the current status of every managed component.
+     
+   - Why should you never manually edit the state file?
+
+      It’s not just about debugging; it's about corruption. The state file is a sensitive JSON mapping. Even a small typo or structural error can make Terraform lose track of your infrastructure, leading to accidental deletions or "ghost" resources that you can't manage anymore.
+
+     
+    - Why should the state file not be committed to Git?
+
+     It often contains secrets in plain text (like database passwords or private keys) that shouldn't be in your version history. Git doesn't support locking. If two people commit changes at once, you’ll get merge conflicts that are nearly impossible to resolve safely
+   
 ---
 
 ### Task 6: Modify, Plan, and Destroy
 1. Change the EC2 instance tag from `"TerraWeek-Day1"` to `"TerraWeek-Modified"` in your `main.tf`
 2. Run `terraform plan` and read the output carefully:
    - What do the `~`, `+`, and `-` symbols mean?
+  ~ means places where update in-place
+  + Addition
+  - deletion
+  -> modification
+     
    - Is this an in-place update or a destroy-and-recreate?
+   - Its an in-place update not destroy and recreate.
+     
 3. Apply the change
 4. Verify the tag changed in the AWS console
+
+<img width="947" height="464" alt="image" src="https://github.com/user-attachments/assets/1b05c833-166d-484e-8e4e-a1c79288fa2a" />
+
+
 5. Finally, destroy everything:
 ```bash
 terraform destroy
@@ -162,19 +201,3 @@ Create `day-61-terraform-intro.md` with:
 - Screenshot of the resources in the AWS console
 - What each Terraform command does (init, plan, apply, destroy, show, state list)
 - What the state file contains and why it matters
-
----
-
-## Submission
-1. Add `day-61-terraform-intro.md` to `2026/day-61/`
-2. Commit and push to your fork
-
----
-
-## Learn in Public
-Share on LinkedIn: "Started the TerraWeek Challenge -- installed Terraform, created my first S3 bucket and EC2 instance using code, and destroyed it all with one command. Infrastructure as Code just clicked."
-
-`#90DaysOfDevOps` `#TerraWeek` `#DevOpsKaJosh` `#TrainWithShubham`
-
-Happy Learning!
-**TrainWithShubham**
