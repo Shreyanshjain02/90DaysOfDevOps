@@ -1,4 +1,4 @@
-
+<img width="632" height="119" alt="image" src="https://github.com/user-attachments/assets/85540514-ed75-4c64-a6b5-24eeb21d6795" />
 ## Task
 You will pick a running process/service on your system and:
 
@@ -12,15 +12,27 @@ ps aux
 
 **OR**
 
-top # to get top cpu or memory consuming process or service
+top   (To get top cpu or memory consuming process or service)
 
-<img width="956" height="175" alt="image" src="https://github.com/user-attachments/assets/15ceab3b-8cbd-49f0-a3ab-35b61b8916dc" /># Day 05 – Linux Troubleshooting Drill: CPU, Memory, and Logs
+<img width="956" height="175" alt="image" src="https://github.com/user-attachments/assets/15ceab3b-8cbd-49f0-a3ab-35b61b8916dc" /># Day 05 – Linux Troubleshooting Drill: 
+
+pidstat
 
 - Capture a quick health snapshot (CPU, memory, disk, network)
+**CPU**
+<img width="940" height="321" alt="image" src="https://github.com/user-attachments/assets/75d51228-76ac-4da4-af3f-4eeda257b06f" />
 
+**MEM**
+<img width="655" height="44" alt="image" src="https://github.com/user-attachments/assets/c2152b1f-d94b-4896-b437-ed2fcb486b28" />
+
+**DISK**
+<img width="632" height="119" alt="image" src="https://github.com/user-attachments/assets/538d37c3-cd01-4850-b87f-db4277184135" />
+
+**Network**
 
 
 - Trace logs for that service
+
 
 - Write a **mini runbook** describing what you did and what you’d do next if things were worse
 
@@ -28,11 +40,15 @@ This turns yesterday’s practice into a repeatable troubleshooting routine.
 
 ### What’s a runbook?
 A **runbook** is a short, repeatable checklist you follow during an incident: the exact commands you run, what you observed, and the next actions if the issue persists. Keep it concise so you can reuse it under pressure.
-Being SRE, Runbook for linux system should follow below commands.
+
+Below is the runbook for senior SRE to debug an linux machine during incident.
+
 **cat /proc/cpuinfo**
 
 **uptime** (gives number of users active in last 1,5,15min, which gives idea of CPU cores being used by users vs system)
+
 **Top** (Gives me idea of top CPU and mem consuming process or service)
+
 **pidstate** 
 
 ---
