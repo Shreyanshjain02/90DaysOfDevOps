@@ -101,6 +101,8 @@ Add to your config:
 
 Apply and verify -- your EC2 instance should have a public IP and be reachable.
 
+<img width="959" height="392" alt="image" src="https://github.com/user-attachments/assets/7ab0ad94-2ec3-41f2-9b9b-3ce90f8c84b2" />
+
 ---
 
 ### Task 5: Explicit Dependencies with depends_on
@@ -122,6 +124,14 @@ and paste the output into an online Graphviz viewer.
 
 **Document:** When would you use `depends_on` in real projects? Give two examples.
 
+<img width="742" height="290" alt="image" src="https://github.com/user-attachments/assets/7a2c7e5f-23a7-435f-9b08-794937b8fa86" />
+
+depends_on is used when you explicitly wait and want specific resource to complete.
+
+example:-
+1. monitoring depends_on application instance depends_on database instance.
+2. application depends_on EKS cluster and nodes
+
 ---
 
 ### Task 6: Lifecycle Rules and Destroy
@@ -132,6 +142,12 @@ lifecycle {
 }
 ```
 2. Change the AMI ID to a different one and run `terraform plan` -- observe that Terraform plans to create the new instance before destroying the old one
+
+<img width="715" height="149" alt="image" src="https://github.com/user-attachments/assets/5911749a-00b1-4b47-8707-c53ec2d2a07f" />
+
+
+<img width="956" height="54" alt="image" src="https://github.com/user-attachments/assets/3c7be323-1d11-4f68-9308-8b49a6360c18" />
+
 
 3. Destroy everything:
 ```bash
@@ -152,11 +168,3 @@ terraform destroy
 - Always destroy resources when done to avoid AWS charges
 
 ---
-
-## Documentation
-Create `day-62-providers-resources.md` with:
-- Your full `main.tf` with comments explaining each resource
-- Screenshot of `terraform apply` output
-- Screenshot of the VPC and its resources in the AWS console
-- The dependency graph (image or text)
-- Explanation of implicit vs explicit dependencies in your own words
