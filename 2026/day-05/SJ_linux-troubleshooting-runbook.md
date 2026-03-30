@@ -43,10 +43,7 @@ watch -n 1 "ip -s link"
 
 journalctl -u containerd
 
-Write a **mini runbook** describing what you did and what you’d do next if things were worse
-
-This turns yesterday’s practice into a repeatable troubleshooting routine.
-
+---
 ### What’s a runbook?
 A **runbook** is a short, repeatable checklist you follow during an incident: the exact commands you run, what you observed, and the next actions if the issue persists. Keep it concise so you can reuse it under pressure.
 
@@ -78,7 +75,31 @@ Below is the runbook for senior SRE to debug an linux machine during incident.
 
 ---
 
+**Runbook Flow**
 
+Hardware Reality → cat /proc/cpuinfo
+
+System Load → uptime
+
+Process Villain → top (press 1)
+
+Memory Check → free -h
+
+Context Switching → vmstat 1
+
+Disk Utilization → iostat -xz 1, df -h
+
+Per-PID Stats → pidstat -dl 1
+
+Network Health → nstat -z, ip -s link, ss -s
+
+Socket Inspection → sudo ss -ntp (with watch filter)
+
+Kernel Logs → dmesg -T | tail -n 50
+
+App Logs → journalctl -u [service_name] -f
+
+---
 
 ## Guidelines
 Follow these rules while creating your runbook:
