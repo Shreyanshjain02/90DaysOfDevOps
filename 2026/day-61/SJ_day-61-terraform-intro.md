@@ -131,14 +131,17 @@ Terraform tracks everything it creates in a state file. Time to inspect it.
 ```bash
 terraform show                          # Human-readable view of current state
 terraform state list                    # List all resources Terraform manages
+```
 
 <img width="416" height="52" alt="image" src="https://github.com/user-attachments/assets/c32cb60b-0508-44f5-bff1-b9823e3cb4d0" />
 
+```bash
 terraform state show aws_s3_bucket.<name>   # Detailed view of a specific resource
+```
 
 <img width="577" height="396" alt="image" src="https://github.com/user-attachments/assets/d9d1c418-0b02-4c68-acef-f954ac401ea4" />
 
-
+```bash
 terraform state show aws_instance.<name>
 ```
 
