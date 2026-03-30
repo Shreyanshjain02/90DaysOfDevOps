@@ -24,7 +24,10 @@ Before touching the terminal, research and write short notes on:
 - Automation, Cost , Risk (human Error) , Scalability , Replication.
 
 3. How is Terraform different from AWS CloudFormation, Ansible, and Pulumi?
-
+- CloudFormation is exclusive to AWS. Terraform is cloud-agnostic and can manage resources across AWS, Azure, GCP, and thousands of other third-party services (like Cloudflare or Datadog) using a single framework.
+- Terraform is a provisioning tool meant to build the "house" (servers, networks, databases). Ansible is primarily a configuration management tool meant to "decorate" it (installing software, patching, and managing apps on existing servers).
+- Pulumi is also an provisioning tool. unlike terraform (HCL) pulumi can be used with general purpose programming language like python,ts,go etc
+  
 4. What does it mean that Terraform is "declarative" and "cloud-agnostic"?
 - It means terraform proivide desired end-state of infrastracture i.e. creating S3 bucket here we are declaring to to create s3 bucket instead of writing steps to create s3 bucket. also as terraform is supported by large number of cloud providers that why it an cloud agnostic.
 
