@@ -147,9 +147,16 @@ Stop hardcoding the AMI ID. Use a data source to fetch it dynamically.
 
 Apply and verify -- your config now works in any region without changing the AMI.
 
+<img width="953" height="263" alt="image" src="https://github.com/user-attachments/assets/06783987-6dcd-4b5e-a26e-60c9ca11dfb9" />
+
+
 **Document:** What is the difference between a `resource` and a `data` source?
 
+resource like service we are using example ec2 instance, s3 bucket etc. More  A resource is used when you want Terraform to create, update, or delete something in your cloud provider.
+A data source is a read-only query. You use it when you need to fetch information about something that already exists in your AWS account, but your current Terraform code did not build it.
+
 ---
+
 
 ### Task 5: Use Locals for Dynamic Values
 1. Add a `locals` block:
@@ -178,6 +185,12 @@ tags = merge(local.common_tags, {
 
 Apply and check the tags in the AWS console -- every resource should have consistent tagging.
 
+<img width="953" height="356" alt="image" src="https://github.com/user-attachments/assets/633ef040-b431-4daa-b11a-2bcc44097066" />
+
+<img width="545" height="436" alt="image" src="https://github.com/user-attachments/assets/f45f0cee-5931-4f6a-95ce-d12b06dc4843" />
+
+<img width="955" height="22" alt="image" src="https://github.com/user-attachments/assets/43a37978-93bb-4505-b5cc-b0456c685498" />
+
 ---
 
 ### Task 6: Built-in Functions and Conditional Expressions
@@ -198,6 +211,9 @@ terraform console
 
 3. **Networking function:**
    - `cidrsubnet("10.0.0.0/16", 8, 1)` -> `"10.0.1.0/24"`
+
+<img width="511" height="258" alt="image" src="https://github.com/user-attachments/assets/28a8d050-084a-431f-b7be-97e4b2f29358" />
+
 
 4. **Conditional expression** -- add this to your config:
 ```hcl
