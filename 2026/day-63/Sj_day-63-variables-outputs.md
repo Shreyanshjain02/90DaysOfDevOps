@@ -72,6 +72,29 @@ terraform plan                              # env var overrides default but not 
 
 **Document:** Write the variable precedence order from lowest to highest priority.
 
+Terraform allows you to feed values into your root module using several methods. From the most manual to the most automated, they are:
+
+- Environment Variables: Prefixing your system variables with TF_VAR_.
+- The terraform.tfvars file: The default file Terraform automatically looks for in your current directory.
+- The terraform.tfvars.json file: The JSON equivalent of the default file.
+- Auto-loaded files (*.auto.tfvars or *.auto.tfvars.json): Any file ending in this extension in the current directory will be automatically processed.
+- CLI flags (-var or -var-file): Passing values or custom files directly into the command line when running a plan or apply.
+
+**Order**
+- Environment Variables (**Lowest**)
+   Example: export TF_VAR_environment="Development"
+- The terraform.tfvars file
+   Example: environment = "Staging" (This overrides the environment variable above).
+- The terraform.tfvars.json file
+   Note: If both a .tfvars and a .tfvars.json exist, they have the same priority level, but the JSON file is read last and will override the HCL file.
+   Any *.auto.tfvars or *.auto.tfvars.json files
+   Example: common.auto.tfvars. These are evaluated in alphabetical order by filename. A file named z.auto.tfvars will override a.auto.tfvars.
+- Command-line flags (-var and -var-file) (**Highest**)
+   Example: terraform plan -var-file="production.tfvars" or terraform plan -var="environment=Production".
+   Note: Anything you explicitly type into the CLI always wins. If you use multiple -var or -var-file flags, Terraform processes them from left to right, meaning the rightmost flag has the ultimate final say.
+
+
+
 ---
 
 ### Task 3: Add Outputs
@@ -84,6 +107,13 @@ Create an `outputs.tf` file with outputs for:
 5. `instance_public_dns` -- the public DNS name
 6. `security_group_id` -- the security group ID
 
+```bash
+terraform plan
+```
+
+<img width="454" height="175" alt="image" src="https://github.com/user-attachments/assets/cf1785a2-9a89-4f2f-a1a1-5ea0037cde05" />
+
+
 Apply your config and verify the outputs are printed at the end:
 ```bash
 terraform apply
@@ -93,8 +123,10 @@ terraform output                          # Show all outputs
 terraform output instance_public_ip       # Show a specific output
 terraform output -json                    # JSON format for scripting
 ```
+<img width="590" height="170" alt="image" src="https://github.com/user-attachments/assets/436762d1-79da-47c7-a94b-10f778712d83" />
 
 **Verify:** Does `terraform output instance_public_ip` return the correct IP?
+Yes public Ip is correct
 
 ---
 
