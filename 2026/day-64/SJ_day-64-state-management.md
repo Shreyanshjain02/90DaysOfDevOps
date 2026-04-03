@@ -1,4 +1,4 @@
-# Day 64 -- Terraform State Management and Remote Backends
+<img width="850" height="240" alt="image" src="https://github.com/user-attachments/assets/b73d8779-0d94-4633-bd00-dd2f90a1c549" /># Day 64 -- Terraform State Management and Remote Backends
 
 ## Task
 The state file is the single most important thing in Terraform. It is the source of truth -- the map between your `.tf` files and what actually exists in the cloud. Lose it and Terraform forgets everything. Corrupt it and your next apply could destroy production.
@@ -87,6 +87,14 @@ Terraform will ask: "Do you want to copy existing state to the new backend?" -- 
    - Check the S3 bucket -- you should see `dev/terraform.tfstate`
    - Your local `terraform.tfstate` should now be empty or gone
    - Run `terraform plan` -- it should show no changes (state migrated correctly)
+      Yes, No changes but has 1 add and 1 destory.
+     
+<img width="601" height="158" alt="image" src="https://github.com/user-attachments/assets/4ef33315-48f3-48d3-90e1-8b96c60fe5ca" />
+
+<img width="572" height="55" alt="image" src="https://github.com/user-attachments/assets/de028de3-ab14-4ea1-ad59-9dc8fce4dc14" />
+
+<img width="959" height="359" alt="image" src="https://github.com/user-attachments/assets/b08b73ef-11e5-4e32-89bb-40f7a163932c" />
+
 
 ---
 
@@ -106,10 +114,20 @@ terraform plan
 
 **Document:** What is the error message? Why is locking critical for team environments?
 
+<img width="850" height="240" alt="image" src="https://github.com/user-attachments/assets/482a4efc-8fc1-4fb3-b5cb-504975abcf6b" />
+
+This error message shows following info:-
+ - Current check condition - failed/locked - conditionalcheckfailed
+ - lock info :-
+ -     Lockid - 
+ -     operation - apply
+ -     who - ubuntu
+
 5. After the test, if you get stuck with a stale lock:
 ```bash
 terraform force-unlock <LOCK_ID>
 ```
+<img width="657" height="286" alt="image" src="https://github.com/user-attachments/assets/7d73cabd-c501-4c1b-9bdc-1754bbcf3e9c" />
 
 ---
 
@@ -122,13 +140,22 @@ Not everything starts with Terraform. Sometimes resources already exist in AWS a
 ```bash
 terraform import aws_s3_bucket.imported terraweek-import-test-<yourname>
 ```
+
+<img width="971" height="286" alt="image" src="https://github.com/user-attachments/assets/2381288e-947c-4628-b5a8-b672636584c5" />
+
 4. Run `terraform plan`:
    - If you see "No changes" -- the import was perfect
+   -  no changes 
    - If you see changes -- your config does not match reality. Update your config to match, then plan again until you get "No changes"
 
 5. Run `terraform state list` -- the imported bucket should now appear alongside your other resources
 
+<img width="665" height="230" alt="image" src="https://github.com/user-attachments/assets/6c1a7cba-a3ae-471b-90fb-46b61bdeba85" />
+
+
 **Document:** What is the difference between `terraform import` and creating a resource from scratch?
+
+With import we are adding details of already exist resource state in terraform.tfstate so that our state is updated date with other's changes as well.
 
 ---
 
@@ -142,11 +169,25 @@ terraform state mv aws_s3_bucket.imported aws_s3_bucket.logs_bucket
 ```
 Update your `.tf` file to match the new name. Run `terraform plan` -- it should show no changes.
 
+<img width="731" height="257" alt="image" src="https://github.com/user-attachments/assets/3a2f24b3-0714-4dcb-83fa-47c1b9e831c2" />
+
+<img width="942" height="68" alt="image" src="https://github.com/user-attachments/assets/a386f673-9948-4b01-867b-38f138ffbb80" />
+
+<img width="907" height="173" alt="image" src="https://github.com/user-attachments/assets/20bdbfad-7146-4fa5-b66a-6b02351f718e" />
+
+
 2. **Remove a resource from state (without destroying it):**
 ```bash
 terraform state rm aws_s3_bucket.logs_bucket
 ```
+<img width="727" height="59" alt="image" src="https://github.com/user-attachments/assets/34be037f-3490-485c-9f37-75962b0b82bc" />
+
 Run `terraform plan` -- Terraform no longer knows about the bucket, but it still exists in AWS.
+
+<img width="910" height="182" alt="image" src="https://github.com/user-attachments/assets/7dea0fdc-14d0-4be8-92d3-84b6bd5c6862" />
+
+<img width="616" height="227" alt="image" src="https://github.com/user-attachments/assets/535023eb-9fe7-49a3-8f75-81d237652a2a" />
+
 
 3. **Re-import it** to bring it back:
 ```bash
@@ -155,12 +196,19 @@ terraform import aws_s3_bucket.logs_bucket terraweek-import-test-<yourname>
 
 **Document:** When would you use `state mv` in a real project? When would you use `state rm`?
 
+We can use state mv for backup purpose in real project that is before doing state rm.
+also, In a real-world project, these commands are used to manually adjust the "mapping" between your code and the actual infrastructure.
+state rm :- Use this to "forget" a resource. It removes the item from the state file but does not delete the actual resource in your cloud provider. as we saw even after removing resource aws_s3_bucket.logs_bucket there were no changes on console.
+
 ---
 
 ### Task 6: Simulate and Fix State Drift
 State drift happens when someone changes infrastructure outside of Terraform -- through the AWS console, CLI, or another tool.
 
 1. Apply your full config so everything is in sync
+
+<img width="641" height="179" alt="image" src="https://github.com/user-attachments/assets/7d2c54f2-aea4-4bcf-b1ff-56ee4f99b7d2" />
+
 2. Go to the **AWS console** and manually:
    - Change the Name tag of your EC2 instance to `"ManuallyChanged"`
    - Change the instance type if it's stopped (or add a new tag)
@@ -168,7 +216,13 @@ State drift happens when someone changes infrastructure outside of Terraform -- 
 ```bash
 terraform plan
 ```
+<img width="944" height="242" alt="image" src="https://github.com/user-attachments/assets/78545cd9-d4e7-4948-8271-9f4cf0d97ff8" />
+
+
 You should see a **diff** -- Terraform detects that reality no longer matches the desired state.
+
+<img width="722" height="260" alt="image" src="https://github.com/user-attachments/assets/2df026ea-6189-43ce-8e80-9ae1502999a6" />
+
 
 4. You have two choices:
    - **Option A:** Run `terraform apply` to force reality back to match your config (reconcile)
@@ -176,9 +230,19 @@ You should see a **diff** -- Terraform detects that reality no longer matches th
 
 5. Choose Option A -- apply and verify the tags are restored.
 
+<img width="947" height="232" alt="image" src="https://github.com/user-attachments/assets/a0e14e40-5d5f-4073-b95c-ffb82766e155" />
+
+
 6. Run `terraform plan` again -- it should show "No changes." Drift resolved.
 
+<img width="930" height="320" alt="image" src="https://github.com/user-attachments/assets/29cbde78-206c-4368-a28d-fc3588f4589b" />
+
+
 **Document:** How do teams prevent state drift in production? (hint: restrict console access, use CI/CD for all changes)
+1. Don't grant console access with admin or creation role. give only read-only role.
+2. Use git to track every commit and pull request before implementing.
+3. Storing state files locally is a major risk for teams. Instead, use a remote backend
+4. learn more about policy and control.
 
 ---
 
@@ -202,18 +266,3 @@ Create `day-64-state-management.md` with:
 - Explanation of state drift with your real example
 - When to use: `state mv`, `state rm`, `import`, `force-unlock`, `refresh`
 
----
-
-## Submission
-1. Add `day-64-state-management.md` to `2026/day-64/`
-2. Commit and push to your fork
-
----
-
-## Learn in Public
-Share on LinkedIn: "Mastered Terraform state today -- migrated to S3 remote backend with DynamoDB locking, imported existing AWS resources, performed state surgery, and simulated drift. State management is the foundation of reliable infrastructure as code."
-
-`#90DaysOfDevOps` `#TerraWeek` `#DevOpsKaJosh` `#TrainWithShubham`
-
-Happy Learning!
-**TrainWithShubham**
