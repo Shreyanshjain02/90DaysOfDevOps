@@ -17,10 +17,25 @@ terraform state show aws_instance.<name>          # Every attribute of the insta
 terraform state show aws_vpc.<name>               # Every attribute of the VPC
 ```
 
+<img width="644" height="207" alt="image" src="https://github.com/user-attachments/assets/3337a3d5-3a97-4d0b-b4bd-acea52f8e352" />
+
+<img width="860" height="385" alt="image" src="https://github.com/user-attachments/assets/5290baec-fa08-4047-9343-98f47518c0e0" />
+
+<img width="777" height="404" alt="image" src="https://github.com/user-attachments/assets/e4530a1c-e589-4936-8b19-669999ca8f69" />
+
+
 Answer:
 1. How many resources does Terraform track?
+  - 11 Resources and 2 data
+    
 2. What attributes does the state store for an EC2 instance? (hint: way more than what you defined)
+
+  - Yes
+
 3. Open `terraform.tfstate` in an editor -- find the `serial` number. What does it represent?
+
+The serial number in a terraform.tfstate file is a monotonically increasing integer that acts as a version counter, incrementing every time the state file is updated.
+currently my terraform.tfstate file shows 147 i.e i have udpated terraform 147 times.
 
 ---
 
