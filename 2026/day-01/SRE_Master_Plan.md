@@ -43,7 +43,7 @@
 
 ## ✅ Progress Tracker
 - [ ] [TWS] DevOps Basics (Docker/K8s)
-- [ ] [Cert] AWS Associate
+- [ ] [Cert] AWS Solution Architect Associate
 - [ ] [Course] Google SRE Fundamentals
 - [ ] [Cert/Skills] OTel & Observability Stack
 - [ ] [Coding] Python Automation Suite
