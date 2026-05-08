@@ -55,6 +55,13 @@ Check your files: `ls -l devops.txt notes.txt script.sh`
 
 Answer: What are current permissions? Who can read/write/execute?
 
+User =  read and write
+group =  read and write
+other = read only
+
+<img width="490" height="130" alt="image" src="https://github.com/user-attachments/assets/5cc84ff8-1bc4-464e-8c50-424e9192d488" />
+
+
 ---
 
 ### Task 4: Modify Permissions (20 minutes)
@@ -66,6 +73,10 @@ Answer: What are current permissions? Who can read/write/execute?
 
 **Verify:** `ls -l` after each change
 
+<img width="486" height="155" alt="image" src="https://github.com/user-attachments/assets/d24a29c9-3571-4b48-b731-dd32997c6e43" />
+
+<img width="407" height="143" alt="image" src="https://github.com/user-attachments/assets/13dd3e13-5c98-4a4a-94df-f153912b606d" />
+
 ---
 
 ### Task 5: Test Permissions (10 minutes)
@@ -73,6 +84,11 @@ Answer: What are current permissions? Who can read/write/execute?
 1. Try writing to a read-only file - what happens?
 2. Try executing a file without execute permission
 3. Document the error messages
+
+<img width="470" height="173" alt="image" src="https://github.com/user-attachments/assets/99e726cd-185e-4751-91c8-e7d64c5a9dca" />
+
+
+<img width="675" height="77" alt="image" src="https://github.com/user-attachments/assets/c8eb751b-affb-4800-aa16-37070b160975" />
 
 ---
 
@@ -84,45 +100,4 @@ Answer: What are current permissions? Who can read/write/execute?
 
 ---
 
-## Documentation
 
-Create `day-10-file-permissions.md`:
-
-```markdown
-# Day 10 Challenge
-
-## Files Created
-[list files]
-
-## Permission Changes
-[before/after for each file]
-
-## Commands Used
-[your commands]
-
-## What I Learned
-[3 key points]
-```
-
----
-
-## Submission
-1. Navigate to `2026/day-10/` folder
-2. Add `day-10-file-permissions.md` with screenshots
-3. Commit and push
-
----
-
-## Learn in Public
-
-Share on LinkedIn about mastering file permissions.
-
-Use hashtags:
-```
-#90DaysOfDevOps
-#DevOpsKaJosh
-#TrainWithShubham
-```
-
-Happy Learning
-**TrainWithShubham**
